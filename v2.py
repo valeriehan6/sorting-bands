@@ -213,7 +213,7 @@ def assign(g_array, musicians):
             if turn==0:
                 fb=True                
     return g_array
-def create_necList(g_array, genre):
+def create_necList(g_array, genre): #g_array is the list of musicians who have genre as their primary genre
             
     if genre=='Rock':
         perc=[x for x in g_array if 'Drumset/percussion' in x.skills[0]]
@@ -231,7 +231,7 @@ def create_necList(g_array, genre):
         pass
     pass
     
-def order_bySkills(i_array, skill):
+def order_bySkills(i_array, skill):#i_array is a list of musicians with skill in their skillset
     profs_for_skill=[]
     for m in i_array:
         print(m.skills)
@@ -247,7 +247,7 @@ def order_bySkills(i_array, skill):
     result = [x for _,x in sorted(zip(profs_for_skill,i_array), reverse=True, key=lambda pair: pair[0])]
     return result
     
-def sort(musician_array):
+def sort(musician_array):#makes all groups 
     #Rock
     ro=[x for x in musician_array if 'Rock' in x.genre]
     perc=[x for x in ro if 'Drumset/percussion' in x.skills]
