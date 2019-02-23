@@ -1,0 +1,60 @@
+Name: 0 |Primary Genre: Singer/Songwriter |Skills: Producer/beatmaker |Proficiencies: 10-15 |Secondary Genres: Rock, Jazz
+Name: 1 |Primary Genre: Hip-Hop/R&B |Skills: Drumset/Percussion, Piano |Proficiencies: 10-15, 5-10 |Secondary Genres: Electronic
+Name: 2 |Primary Genre: Rock |Skills: Producer/beatmaker, Upright Bass, Electric Guitar |Proficiencies: 15+, 5-10, 10-15 |Secondary Genres: Hip-Hop/R&B
+Name: 3 |Primary Genre: Electronic |Skills: Producer/beatmaker |Proficiencies: 15+ |Secondary Genres: 
+Name: 4 |Primary Genre: Rock |Skills: Saxophone, Drumset/Percussion, Piano |Proficiencies: 10-15, 0-5, 5-10 |Secondary Genres: Singer/Songwriter, Electronic
+Name: 5 |Primary Genre: Hip-Hop/R&B |Skills: Rapper |Proficiencies: 15+
+Name: 6 |Primary Genre: Hip-Hop/R&B |Skills: Trumpet, Rapper, Trombone |Proficiencies: 10-15, 15+, 0-5
+Name: 7 |Primary Genre: Jazz |Skills: Saxophone |Proficiencies: 5-10 |Secondary Genres: Singer/Songwriter
+Name: 8 |Primary Genre: Hip-Hop/R&B |Skills: Trumpet, Piano, Electric Guitar |Proficiencies: 5-10, 0-5, 15+ |Secondary Genres: Rock
+Name: 9 |Primary Genre: Electronic |Skills: Singer, Bass Guitar |Proficiencies: 0-5, 10-15 |Secondary Genres: Singer/Songwriter
+Name: 10 |Primary Genre: Singer/Songwriter |Skills: Piano, Electric Guitar |Proficiencies: 10-15, 0-5 |Secondary Genres: 
+Name: 11 |Primary Genre: Rock |Skills: Singer |Proficiencies: 5-10
+Name: 12 |Primary Genre: Rock |Skills: Piano, Rapper, Saxophone |Proficiencies: 15+, 0-5, 10-15 |Secondary Genres: Hip-Hop/R&B, Singer/Songwriter
+Name: 13 |Primary Genre: Jazz |Skills: Trumpet, Electric Guitar, Singer |Proficiencies: 15+, 0-5, 5-10
+Name: 14 |Primary Genre: Electronic |Skills: Rapper |Proficiencies: 5-10 |Secondary Genres: Rock, Jazz
+Name: 15 |Primary Genre: Singer/Songwriter |Skills: Trombone, Drumset/Percussion, Bass Guitar |Proficiencies: 15+, 5-10, 0-5 |Secondary Genres: Rock, Electronic
+Name: 16 |Primary Genre: Jazz |Skills: Trumpet, Saxophone |Proficiencies: 15+, 0-5
+Name: 17 |Primary Genre: Hip-Hop/R&B |Skills: Piano |Proficiencies: 0-5 |Secondary Genres: Singer/Songwriter, Jazz
+Name: 18 |Primary Genre: Rock |Skills: Saxophone |Proficiencies: 10-15 |Secondary Genres: Electronic, Singer/Songwriter
+Name: 19 |Primary Genre: Hip-Hop/R&B |Skills: Producer/beatmaker |Proficiencies: 10-15
+Name: 20 |Primary Genre: Hip-Hop/R&B |Skills: Producer/beatmaker, Drumset/Percussion |Proficiencies: 10-15, 5-10
+Name: 21 |Primary Genre: Rock |Skills: Trombone |Proficiencies: 10-15 |Secondary Genres: Singer/Songwriter
+Name: 22 |Primary Genre: Electronic |Skills: Trombone |Proficiencies: 10-15 |Secondary Genres: Hip-Hop/R&B, Singer/Songwriter
+Name: 23 |Primary Genre: Singer/Songwriter |Skills: Trumpet, Accoustic Guitar |Proficiencies: 5-10, 15+ |Secondary Genres: Electronic, Rock
+Name: 24 |Primary Genre: Jazz |Skills: Producer/beatmaker, Saxophone |Proficiencies: 0-5, 15+ |Secondary Genres: Singer/Songwriter
+Name: 25 |Primary Genre: Singer/Songwriter |Skills: Piano, Bass Guitar |Proficiencies: 0-5, 5-10 |Secondary Genres: Jazz, Rock
+Name: 26 |Primary Genre: Singer/Songwriter |Skills: Bass Guitar |Proficiencies: 0-5 |Secondary Genres: Hip-Hop/R&B, Electronic
+Name: 27 |Primary Genre: Rock |Skills: Trombone, Other |Proficiencies: 10-15, 15+ |Secondary Genres: Singer/Songwriter, Hip-Hop/R&B
+Name: 28 |Primary Genre: Rock |Skills: Accoustic Guitar, Bass Guitar, Producer/beatmaker |Proficiencies: 15+, 5-10, 10-15 |Secondary Genres: Singer/Songwriter
+Name: 29 |Primary Genre: Rock |Skills: Other |Proficiencies: 10-15 |Secondary Genres: Hip-Hop/R&B, Electronic
+Name: 30 |Primary Genre: Electronic |Skills: Electric Guitar, Accoustic Guitar |Proficiencies: 0-5, 15+
+Name: 31 |Primary Genre: Hip-Hop/R&B |Skills: Singer |Proficiencies: 5-10 |Secondary Genres: Electronic, Rock
+Name: 32 |Primary Genre: Singer/Songwriter |Skills: Singer, Electric Guitar, Trumpet |Proficiencies: 0-5, 15+, 10-15
+Name: 33 |Primary Genre: Electronic |Skills: Rapper |Proficiencies: 10-15 |Secondary Genres: Singer/Songwriter
+Name: 34 |Primary Genre: Rock |Skills: Singer, Bass Guitar |Proficiencies: 10-15, 5-10
+Name: 35 |Primary Genre: Electronic |Skills: Bass Guitar |Proficiencies: 5-10 |Secondary Genres: Singer/Songwriter
+Name: 36 |Primary Genre: Rock |Skills: Producer/beatmaker, Saxophone, Trombone |Proficiencies: 5-10, 15+, 0-5 |Secondary Genres: Electronic
+Name: 37 |Primary Genre: Singer/Songwriter |Skills: Rapper |Proficiencies: 5-10 |Secondary Genres: Electronic
+Name: 38 |Primary Genre: Electronic |Skills: Piano, Saxophone, Trumpet |Proficiencies: 15+, 5-10, 0-5 |Secondary Genres: Jazz
+Name: 39 |Primary Genre: Rock |Skills: Electric Guitar, Rapper, Singer |Proficiencies: 15+, 5-10, 0-5 |Secondary Genres: Hip-Hop/R&B, Singer/Songwriter, Jazz
+Name: 40 |Primary Genre: Jazz |Skills: Trumpet, Other, Producer/beatmaker |Proficiencies: 5-10, 0-5, 10-15 |Secondary Genres: Electronic
+Name: 41 |Primary Genre: Singer/Songwriter |Skills: Saxophone, Piano, Trumpet |Proficiencies: 0-5, 10-15, 5-10 |Secondary Genres: Electronic, Jazz, Hip-Hop/R&B
+Name: 42 |Primary Genre: Rock |Skills: Trumpet, Electric Guitar, Rapper |Proficiencies: 0-5, 15+, 10-15
+Name: 43 |Primary Genre: Hip-Hop/R&B |Skills: Rapper, Drumset/Percussion |Proficiencies: 10-15, 0-5 |Secondary Genres: Rock
+Name: 44 |Primary Genre: Jazz |Skills: Singer |Proficiencies: 10-15
+Name: 45 |Primary Genre: Singer/Songwriter |Skills: Trombone, Saxophone |Proficiencies: 15+, 0-5 |Secondary Genres: Electronic
+Name: 46 |Primary Genre: Jazz |Skills: Piano |Proficiencies: 0-5 |Secondary Genres: 
+Name: 47 |Primary Genre: Electronic |Skills: Other |Proficiencies: 5-10 |Secondary Genres: Jazz, Hip-Hop/R&B
+Name: 48 |Primary Genre: Singer/Songwriter |Skills: Trumpet, Singer, Bass Guitar |Proficiencies: 15+, 0-5, 5-10
+Name: 49 |Primary Genre: Jazz |Skills: Electric Guitar, Trombone, Upright Bass |Proficiencies: 10-15, 0-5, 15+ |Secondary Genres: Hip-Hop/R&B, Singer/Songwriter
+Name: 50 |Primary Genre: Rock |Skills: Bass Guitar, Rapper |Proficiencies: 15+, 0-5
+Name: 51 |Primary Genre: Hip-Hop/R&B |Skills: Drumset/Percussion, Trumpet, Trombone |Proficiencies: 10-15, 5-10, 15+ |Secondary Genres: Singer/Songwriter, Electronic
+Name: 52 |Primary Genre: Jazz |Skills: Drumset/Percussion |Proficiencies: 10-15
+Name: 53 |Primary Genre: Electronic |Skills: Drumset/Percussion, Trumpet, Singer |Proficiencies: 15+, 10-15, 5-10 |Secondary Genres: Singer/Songwriter
+Name: 54 |Primary Genre: Electronic |Skills: Bass Guitar, Saxophone, Trombone |Proficiencies: 15+, 0-5, 10-15 |Secondary Genres: Rock
+Name: 55 |Primary Genre: Jazz |Skills: Upright Bass, Singer |Proficiencies: 15+, 0-5 |Secondary Genres: Electronic, Singer/Songwriter
+Name: 56 |Primary Genre: Singer/Songwriter |Skills: Singer, Electric Guitar |Proficiencies: 5-10, 10-15
+Name: 57 |Primary Genre: Singer/Songwriter |Skills: Piano, Trombone, Drumset/Percussion |Proficiencies: 15+, 5-10, 0-5 |Secondary Genres: Electronic, Jazz
+Name: 58 |Primary Genre: Hip-Hop/R&B |Skills: Drumset/Percussion |Proficiencies: 0-5 |Secondary Genres: Singer/Songwriter, Rock
+Name: 59 |Primary Genre: Electronic |Skills: Accoustic Guitar, Upright Bass |Proficiencies: 15+, 5-10 |Secondary Genres: Jazz, Singer/Songwriter
