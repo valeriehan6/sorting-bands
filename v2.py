@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import random
 import csv
 import itertools
@@ -200,14 +201,15 @@ def assign(g_array, musicians):
     for i, m in enumerate(musicians):
         if fb:
             turn=i%3
-            g_array[turn].add_musician(musicians[i], 'Singer')
+            #g_array[turn].add_musician(musicians[i], 'Singer')
+            print(turn,i)
             if turn==2:
                 fb=False
         else:
             #print('x')
             turn=2 - i%3
-            #print(turn, m)
-            g_array[turn].add_musician(musicians[i], 'Singer')
+            print(turn, i)
+            #g_array[turn].add_musician(musicians[i], 'Singer')
             if turn==0:
                 fb=True                
     return g_array
@@ -261,11 +263,11 @@ def sort(musician_array):
     
     #SingerSongwriter
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
-        
+assign([0], [0,1,2,3,4,5,6,7])       
 m_array=read('entries.csv')
 ss=[x for x in m_array if 'Singer/Songwriter' in x.genre]
 singers=[x for x in ss if 'Singer' in x.skills]
 g1=group('Singer/Songwriter', [],[])
 g2=group('Singer/Songwriter', [],[])
 g3=group('Singer/Songwriter', [],[])
-assign([g1,g2,g3], singers)
+print(assign([g1,g2,g3], singers))
