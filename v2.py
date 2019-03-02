@@ -3,6 +3,7 @@ import random
 import csv
 import itertools
 import numpy
+from itertools import cycle
 #from more_itertools import sort_together
 
 genre_array=['Hip-Hop/R&B', 'Rock', 'Jazz', 'Singer/Songwriter', 'Electronic']
@@ -207,31 +208,26 @@ def read(file_name):
 #        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
 def assign(g_array, nec_skills, musicians):
     fb=True
+    n=len(g_array)
+    li=list(range(0,n)) + list(range(n-1,-1,-1))
+    it=cycle(li)
     un_g_array = {}
     turn = 0
-    for skill in nec_skills:
+    for j, skill in enumerate(nec_skills):
       starting_turn = turn%3
-      for i, m in enumerate(musicians[skill]):
+      for i, m in enumerate(musicians[j]):
+        turn=next(it)
+        print(turn)
+        g_array[turn].add_musician(m, skill)
         if fb:
-            #print('fb is True')
-            turn=turn%3
-            #print(turn)
-
-            g_array[turn].add_musician(musicians[i], 'Singer')
-            if turn==2:
+            if turn ==n-1:
                 fb=False
+                break
         else:
-            #print('fb is False')
-            #print('x')
-            turn=2 - (turn%3)
-            print(turn)
-            #print(turn, m)
-            g_array[turn].add_musician(musicians[i], 'Singer')
             if turn==0:
                 fb=True
-        if turn == (starting_turn - 1)%3
-          break
-        turn += 1
+                break
+      
       created = False
       while (turn+1)%3 != (starting_turn%3):
         if created == False:
@@ -295,10 +291,27 @@ def sort(musician_array):#makes all groups
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
         
 m_array=read('entries.csv')
-ss=[x for x in m_array if 'Singer/Songwriter' in x.genre]
-singers=[x for x in ss if 'Singer' in x.skills]
-print(singers)
+ro=[x for x in m_array if 'Rock' in x.genre]
+singers=[x for x in ro if 'Singer' in x.skills]
+#musicians=[singers]
+for m in ro:
+    print(m)
+print('Singers')
+for s in singers:
+    print(s)
+perc=[x for x in ro if 'Drumset/percussion' in x.skills]
+print('Drum')
+for p in perc:
+    print(p)
+
+
 g1=group('Singer/Songwriter', [],[])
 g2=group('Singer/Songwriter', [],[])
 g3=group('Singer/Songwriter', [],[])
-print(assign([g1,g2,g3], ['Singer'], singers))
+print(assign([g1,g2,g3], ['Drumset/percussion', 'Singer'], [perc, singers]))
+
+print('Groups')
+print(g1)
+print(g2)
+print(g3)
+
