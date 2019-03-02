@@ -3,10 +3,11 @@ import random
 import csv
 import itertools
 import numpy
+from itertools import cycle
 #from more_itertools import sort_together
 
 genre_array=['Hip-Hop/R&B', 'Rock', 'Jazz', 'Singer/Songwriter', 'Electronic']
-skills_array=['Producer/beatmaker', 'Accoustic Guitar', 'Bass Guitar', 'Electric Guitar', 'Piano', 'Singer', 'Rapper', 'Drumset/percussion', 'Saxophone', 'Upright Bass', 'Trumpet', 'Trombone', 'Other']
+skills_array=['Producer/beatmaker', 'Acoustic Guitar', 'Bass Guitar', 'Electric Guitar', 'Piano', 'Singer', 'Rapper', 'Drumset/percussion', 'Saxophone', 'Upright Bass', 'Trumpet', 'Trombone', 'Other']
 
 class musician:
     def __init__(self, name,prim_genres, skills, proficiencies, sec_genres=None):
@@ -93,9 +94,9 @@ class group:
                 self.iscomplete=True  
         
         elif (self.genre=='Rock'):######################
-            print(num_perc)
-            print(num_singers)
-            print(num_guitars)
+            #print(num_perc)
+            #print(num_singers)
+            #print(num_guitars)
             if ((num_perc>=1) and num_singers>=1 and num_guitars>=1):
                 self.iscomplete=True
         
@@ -205,36 +206,55 @@ def read(file_name):
 # Output: un_g_array: array of groups lacking a necessary skill
 # Edits: - g_array: Assigns musicians with  necessary skills to groups
 #        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
+
 def assign(g_array, nec_skills, musicians):
     fb=True
+    n=len(g_array)
+    li=list(range(0,n)) + list(range(n-1,-1,-1))
+    it=cycle(li)
     un_g_array = {}
     turn = 0
-    for skill in nec_skills:
-      starting_turn = turn%3
-      for i, m in enumerate(musicians[skill]):
+    for j, skill in enumerate(nec_skills):
+      starting_turn = turn%n
+      print('starting: ' + str(starting_turn))
+      
+      for i, m in enumerate(musicians[j]):
+        turn=next(it)
+        print(turn)
+        if skill in g_array[turn].skills:
+            turn=next(it)
+        g_array[turn].add_musician(m, skill)
+        
         if fb:
-            g_array[turn].add_musician(musicians[i], 'Singer')
-            if turn==2:
+            if turn == (starting_turn-1)%n:
                 fb=False
-            else turn = (turn+1)%3
-        else: 
-            g_array[turn].add_musician(musicians[i], 'Singer')
-            if turn==0:
-                fb=True
-            else turn = (turn-1)%3
-        if turn == (starting_turn - 1)%3:
-          break
-        turn += 1
-      created = False
-      while (turn+1)%3 != (starting_turn%3):
-        if created == False:
-          un_g_array[skill] = [g_array[turn]]
+                break
         else:
-          un_g_array[skill].append(g_array[turn])
-        created = True
-        turn += 1
-    
+            if turn==(starting_turn+1)%n:
+                fb=True
+                break
+      created = False
+      ending_turn = turn
+      if fb==False: 
+        while (ending_turn+1)%n != (starting_turn%n):
+            #print(starting_turn, ending_turn)
+            if created == False:
+                un_g_array[skill] = [g_array[ending_turn]]
+            else:
+                un_g_array[skill].append(g_array[ending_turn])
+                created = True
+            ending_turn+=1
+      else:
+          while (ending_turn-1)%n != (starting_turn%n):
+            #print(starting_turn, ending_turn)
+            if created == False:
+                un_g_array[skill] = [g_array[ending_turn]]
+            else:
+                un_g_array[skill].append(g_array[ending_turn])
+                created = True
+            ending_turn-=1
     return un_g_array
+
 
 def create_necList(g_array, genre): #g_array is the list of musicians who have genre as their primary genre
             
@@ -257,7 +277,7 @@ def create_necList(g_array, genre): #g_array is the list of musicians who have g
 def order_bySkills(i_array, skill):#i_array is a list of musicians with skill in their skillset
     profs_for_skill=[]
     for m in i_array:
-        print(m.skills)
+        #print(m.skills)
         s_list=m.skills
         profs=m.level
         loc=s_list.index(skill)
@@ -288,10 +308,27 @@ def sort(musician_array):#makes all groups
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
         
 m_array=read('entries.csv')
-ss=[x for x in m_array if 'Singer/Songwriter' in x.genre]
-singers=[x for x in ss if 'Singer' in x.skills]
-print(singers)
-g1=group('Singer/Songwriter', [],[])
-g2=group('Singer/Songwriter', [],[])
-g3=group('Singer/Songwriter', [],[])
-print(assign([g1,g2,g3], ['Singer'], singers))
+ro=[x for x in m_array if 'Rock' in x.genre]
+singers=[x for x in ro if 'Singer'== x.skills[0]]
+singers=order_bySkills(singers, 'Singer')
+#musicians=[singers]
+for m in ro:
+    print(m)
+print('Singers')
+for s in singers:
+    print(s)
+perc=order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drumset/percussion')
+print('Drum')
+for p in perc:
+    print(p)
+
+g1=group('Rock', [],[])
+g2=group('Rock', [],[])
+g3=group('Rock', [],[])
+print(assign([g1,g2,g3], ['Drumset/percussion', 'Singer'], [perc, singers]))
+
+print('Groups')
+print(g1)
+print(g2)
+print(g3)
+
