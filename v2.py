@@ -214,7 +214,9 @@ def assign(g_array, nec_skills, musicians):
     it=cycle(li)
     un_g_array = {}
     turn = 0
+
     for j, skill in enumerate(nec_skills):
+      finished = False
       starting_turn = turn%n
       print('starting: ' + str(starting_turn))
       
@@ -227,32 +229,37 @@ def assign(g_array, nec_skills, musicians):
         
         if fb:
             if turn == (starting_turn-1)%n:
+                finished = True
                 fb=False
                 break
         else:
             if turn==(starting_turn+1)%n:
+                finished = True
                 fb=True
                 break
       created = False
-      ending_turn = turn
-      if fb==False: 
-        while (ending_turn+1)%n != (starting_turn%n):
-            #print(starting_turn, ending_turn)
-            if created == False:
+      if not finished:
+        if fb: 
+          ending_turn = (turn+1)%n
+          while ending_turn != (starting_turn%n):
+            #print(skill, starting_turn, ending_turn)
+            
+            if not created:
                 un_g_array[skill] = [g_array[ending_turn]]
+                created = True
             else:
                 un_g_array[skill].append(g_array[ending_turn])
-                created = True
-            ending_turn+=1
-      else:
-          while (ending_turn-1)%n != (starting_turn%n):
-            #print(starting_turn, ending_turn)
-            if created == False:
+            ending_turn = (ending_turn+1)%n
+        else:
+          ending_turn = (turn-1)%n
+          while ending_turn != (starting_turn%n):
+            #print(skill, starting_turn, ending_turn)
+            if not created:
                 un_g_array[skill] = [g_array[ending_turn]]
+                created = True
             else:
                 un_g_array[skill].append(g_array[ending_turn])
-                created = True
-            ending_turn-=1
+            ending_turn = (ending_turn-1)%n
     return un_g_array
 
 
