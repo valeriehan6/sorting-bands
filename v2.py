@@ -15,6 +15,7 @@ class musician:
         self.secondary=sec_genres
         self.skills=skills
         self.level=proficiencies
+        self.assigned=False
         if type(self.skills)==list:
             ordered_skills = [x for _,x in sorted(zip(self.level,self.skills), reverse=True)]
             order=[sorted(self.level, reverse=True)]
@@ -53,6 +54,7 @@ class group:
     def add_musician(self, musician, skill):
         self.musician_array.append(musician)
         self.skills.append(skill)
+        musician.assigned=True
     def remove_musician(self, musician):
         loc=self.musician_array.index(musician)
         self.musician_array.remove(musician)
@@ -195,25 +197,52 @@ def read(file_name):
             rownum+=1
             
     return(m_array)
-    
-def assign(g_array, musicians):
-    #given list of group and list of people with instrument for that group, assign in ascending and descending order in order 1,2,3,3,2,1
+
+# Input: - g_array: array of groups
+#        - nec_skills: array of necessary of skills for the genre
+#        - musicians: array of musicians with common top genre such that
+#                     musicians[skill] contains a list of musicians with skill as their primary skill
+# Output: un_g_array: array of groups lacking a necessary skill
+# Edits: - g_array: Assigns musicians with  necessary skills to groups
+#        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
+def assign(g_array, nec_skills, musicians):
     fb=True
-    for i, m in enumerate(musicians):
+    un_g_array = {}
+    turn = 0
+    for skill in nec_skills:
+      starting_turn = turn%3
+      for i, m in enumerate(musicians[skill]):
         if fb:
-            turn=i%3
-            print(turn, m)
+            #print('fb is True')
+            turn=turn%3
+            #print(turn)
+
             g_array[turn].add_musician(musicians[i], 'Singer')
             if turn==2:
                 fb=False
         else:
+            #print('fb is False')
             #print('x')
-            turn=2 - i%3
-            print(turn, m)
+            turn=2 - (turn%3)
+            print(turn)
+            #print(turn, m)
             g_array[turn].add_musician(musicians[i], 'Singer')
             if turn==0:
-                fb=True                
-    return g_array
+                fb=True
+        if turn == (starting_turn - 1)%3
+          break
+        turn += 1
+      created = False
+      while (turn+1)%3 != (starting_turn%3):
+        if created == False:
+          un_g_array[skill] = [g_array[turn]]
+        else:
+          un_g_array[skill].append(g_array[turn])
+        created = True
+        turn += 1
+    
+    return un_g_array
+
 def create_necList(g_array, genre): #g_array is the list of musicians who have genre as their primary genre
             
     if genre=='Rock':
