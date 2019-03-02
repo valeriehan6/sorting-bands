@@ -208,9 +208,8 @@ def assign(g_array, nec_skills, musicians):
     un_g_array = {}
     turn = 0
     for skill in nec_skills:
-      starting_turn = turn
+      starting_turn = turn%3
       for i, m in enumerate(musicians[skill]):
-        turn+=1
         if fb:
             #print('fb is True')
             turn=turn%3
@@ -221,14 +220,17 @@ def assign(g_array, nec_skills, musicians):
         else:
             #print('fb is False')
             #print('x')
-            turn=2 - turn%3
+            turn=2 - (turn%3)
             print(turn)
             #print(turn, m)
             g_array[turn].add_musician(musicians[i], 'Singer')
             if turn==0:
                 fb=True
+        if turn == (starting_turn - 1)%3
+          break
+        turn += 1
       created = False
-      while turn != starting_turn-1:
+      while (turn+1)%3 != (starting_turn%3):
         if created == False:
           un_g_array[skill] = [g_array[turn]]
         else:
