@@ -227,7 +227,6 @@ def assign(g_array, nec_skills, musicians):
             if turn==0:
                 fb=True
                 break
-      
       created = False
       while (turn+1)%3 != (starting_turn%3):
         if created == False:
@@ -293,17 +292,17 @@ def sort(musician_array):#makes all groups
 m_array=read('entries.csv')
 ro=[x for x in m_array if 'Rock' in x.genre]
 singers=[x for x in ro if 'Singer' in x.skills]
+singers=order_bySkills(singers, 'Singer')
 #musicians=[singers]
 for m in ro:
     print(m)
 print('Singers')
 for s in singers:
     print(s)
-perc=[x for x in ro if 'Drumset/percussion' in x.skills]
+perc=order_bySkills([x for x in ro if 'Drumset/percussion' in x.skills], 'Drumset/percussion')
 print('Drum')
 for p in perc:
     print(p)
-
 
 g1=group('Singer/Songwriter', [],[])
 g2=group('Singer/Songwriter', [],[])
