@@ -233,7 +233,7 @@ def assign(g_array, nec_skills, musicians):
           un_g_array[skill] = [g_array[turn]]
         else:
           un_g_array[skill].append(g_array[turn])
-        created = False
+        created = True
         turn += 1
     
     return un_g_array
