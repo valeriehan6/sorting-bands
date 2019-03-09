@@ -257,25 +257,6 @@ def assign(g_array, nec_skills, musicians):
                     else:
                         un_g_array[skill].append(g_array[ending_turn])
                     ending_turn-=1 
-        '''            
-            #print(skill, starting_turn, ending_turn) 
-            if not created:
-                un_g_array[skill] = [g_array[ending_turn]]
-                created = True
-            else:
-                un_g_array[skill].append(g_array[ending_turn])
-            ending_turn = (ending_turn+1)%n
-        else:
-          ending_turn = (turn-1)%n
-          while ending_turn != (starting_turn%n):
-            #print(skill, starting_turn, ending_turn)
-            if not created:
-                un_g_array[skill] = [g_array[ending_turn]]
-                created = True
-            else:
-                un_g_array[skill].append(g_array[ending_turn])
-            ending_turn = (ending_turn-1)%n
-    '''
     return un_g_array
 
 
