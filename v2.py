@@ -345,35 +345,67 @@ def order_bySkills(i_array, skill):#i_array is a list of musicians with skill in
     return result
     
 def sort(musician_array):#makes all groups 
+    
     #Rock
-    g1=group('Rock', [],[])
-    g2=group('Rock', [],[])
-    g3=group('Rock', [],[])
+    r1=group('Rock', [],[])
+    r2=group('Rock', [],[])
+    r3=group('Rock', [],[])
 
     ro=[x for x in musician_array if 'Rock' in x.genre]
-    #Assign 
+    #Assign
     guitars=order_bySkills([x for x in ro if 'Electric guitar'==x.skills[0]], 'Electric guitar')
     perc=order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drumset/percussion')
     singers=[x for x in ro if 'Singer'== x.skills[0]]
-    
     singers=order_bySkills(singers, 'Singer')
     
+    sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
+    
+    un_g_array=assign([r1,r2,r3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:3], perc[:3], singers[:3]])
     
     
     #HipHop
+    h1=group('Hip-Hop/R&B', [],[])
+    h2=group('Hip-Hop/R&B', [],[])
+    h3=group('Hip-Hop/R&B', [],[])
+
     hh=[x for x in musician_array if 'Hip-Hop/R&B' in x.genre]
-    #rappers=[x for x 
+    rappers=order_bySkills([x for x in hh if 'Rapper'==x.skills[0]], 'Rapper') 
+    prod=order_bySkills([x for x in hh if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker') 
+    
+    
+    assign([h1,h2,h3], ['Rapper', 'Producer/beatmaker'], [rappers[:3], prod[:3]])
+
     #Jazz
     jazz=[x for x in musician_array if 'Jazz' in x.genre]
 
     #Electronic    
-    el=[x for x in musician_array if 'Electronic' in x.genre]
+    e1=group('Electronic', [],[])
+    e2=group('Electronic', [],[])
     
+    el=[x for x in musician_array if 'Electronic' in x.genre]
+    hh_prod=order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
+    #inst=order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
+
+
+
     #SingerSongwriter
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
         
 m_array=read('entries.csv')
 ro=[x for x in m_array if 'Rock' in x.genre]
+hh=[x for x in m_array if 'Hip-Hop/R&B' in x.genre]
+el=[x for x in m_array if 'Electronic' in x.genre]
+jazz=[x for x in m_array if 'Jazz' in x.genre]
+for m in jazz:
+    print(m)
+for m in el:
+    print(m)
+
+for m in hh:
+    print(m)
+
+
+'''
 singers=[x for x in ro if 'Singer'== x.skills[0]]
 singers=order_bySkills(singers, 'Singer')
 #musicians=[singers]
@@ -396,7 +428,7 @@ g2=group('Rock', [],[])
 g3=group('Rock', [],[])
 g4=group('Rock', [], [])
 print('Assign Results')
-print(assign([g1,g2,g3, g4], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
+print(assign([g1,g2,g3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
 print('/////////////////////////////////')
 print('Groups')
 print(g1)
@@ -405,3 +437,4 @@ print(g3)
 print(g4)
 
 #sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
+'''
