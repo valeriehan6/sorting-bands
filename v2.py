@@ -282,7 +282,7 @@ def sort(musician_array):#makes all groups
     singers=[x for x in ro if 'Singer'== x.skills[0]]
     singers=order_bySkills(singers, 'Singer')
     
-    sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
+    sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned==False]
     
     un_g_array=assign([r1,r2,r3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:3], perc[:3], singers[:3]])
     
@@ -320,16 +320,16 @@ ro=[x for x in m_array if 'Rock' in x.genre]
 hh=[x for x in m_array if 'Hip-Hop/R&B' in x.genre]
 el=[x for x in m_array if 'Electronic' in x.genre]
 jazz=[x for x in m_array if 'Jazz' in x.genre]
-for m in jazz:
-    print(m)
-for m in el:
-    print(m)
+#for m in jazz:
+#    print(m)
+#for m in el:
+#    print(m)
 
-for m in hh:
-    print(m)
+#for m in hh:
+#    print(m)
 
 
-'''
+
 singers=[x for x in ro if 'Singer'== x.skills[0]]
 singers=order_bySkills(singers, 'Singer')
 #musicians=[singers]
@@ -351,11 +351,18 @@ g1=group('Rock', [],[])
 g2=group('Rock', [],[])
 g3=group('Rock', [],[])
 g4=group('Rock', [], [])
-print('Assign Results')
+#print('Assign Results')
 
-print(assign([g1,g2,g3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
+dict_test=assign([g1,g2,g3,g4], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]])
 
-print(assign([g1,g2,g3,g4], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
+for key in dict_test:
+    print(key)
+    m_skills=order_bySkills([x for x in ro if key in x.skills and x.assigned == False], key)
+    print(type(m_skills))
+    print(len(m_skills))
+    if not not m_skills:
+        print(assign(dict_test[key],[key], m_skills))
+    #print(dict_test)
 
 print('/////////////////////////////////')
 print('Groups')
@@ -365,4 +372,4 @@ print(g3)
 print(g4)
 
 #sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
-'''
+
