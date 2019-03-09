@@ -206,62 +206,33 @@ def read(file_name):
 # Output: un_g_array: array of groups lacking a necessary skill
 # Edits: - g_array: Assigns musicians with  necessary skills to groups
 #        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
-
 def assign(g_array, nec_skills, musicians):
-    fb=True
-    n=len(g_array)
-    li=list(range(0,n)) + list(range(n-1,-1,-1))
-    it=cycle(li)
+    fb = True
+    n = len(g_array)
+    li = list(range(0,n)) + list(range(n-1,-1,-1))
+    it = cycle(li)
     un_g_array = {}
     turn = 0
-
     for j, skill in enumerate(nec_skills):
-      finished = False
-      starting_turn = turn%n
-      print('starting: ' + str(starting_turn))
-      
-      for i, m in enumerate(musicians[j]):
-        turn=next(it)
-        print(turn)
-        if skill in g_array[turn].skills:
-            turn=next(it)
-        g_array[turn].add_musician(m, skill)
-        
-        if fb:
-            if turn == (starting_turn-1)%n:
-                finished = True
-                fb=False
-                break
-        else:
-            if turn==(starting_turn+1)%n:
-                finished = True
-                fb=True
-                break
-      created = False
-      if not finished:
-        if fb: 
-          ending_turn = (turn+1)%n
-          while ending_turn != (starting_turn%n):
-            #print(skill, starting_turn, ending_turn)
-            
-            if not created:
-                un_g_array[skill] = [g_array[ending_turn]]
-                created = True
-            else:
-                un_g_array[skill].append(g_array[ending_turn])
-            ending_turn = (ending_turn+1)%n
-        else:
-          ending_turn = (turn-1)%n
-          while ending_turn != (starting_turn%n):
-            #print(skill, starting_turn, ending_turn)
-            if not created:
-                un_g_array[skill] = [g_array[ending_turn]]
-                created = True
-            else:
-                un_g_array[skill].append(g_array[ending_turn])
-            ending_turn = (ending_turn-1)%n
-    return un_g_array
+        finished = False
+        starting_turn = (turn)%n
+        num_assigned = 0
 
+        for i, m in enumerate(musicians[j]):
+            turn = next(it)
+            #print(turn)
+            if skill in g_array[turn].skills:
+                continue
+
+            g_array[turn].add_musician(m, skill) 
+            num_assigned += 1
+
+            if num_assigned==n:
+                finished = True
+        
+        if not finished:
+           un_g_array[skill]=[x for x in g_array if skill not in x.skills]
+    return un_g_array
 
 def create_necList(g_array, genre): #g_array is the list of musicians who have genre as their primary genre
             
@@ -299,12 +270,23 @@ def order_bySkills(i_array, skill):#i_array is a list of musicians with skill in
     
 def sort(musician_array):#makes all groups 
     #Rock
+    g1=group('Rock', [],[])
+    g2=group('Rock', [],[])
+    g3=group('Rock', [],[])
+
     ro=[x for x in musician_array if 'Rock' in x.genre]
-    perc=[x for x in ro if 'Drumset/percussion' in x.skills]
+    #Assign 
+    guitars=order_bySkills([x for x in ro if 'Electric guitar'==x.skills[0]], 'Electric guitar')
+    perc=order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drumset/percussion')
+    singers=[x for x in ro if 'Singer'== x.skills[0]]
+    
+    singers=order_bySkills(singers, 'Singer')
+    
+    
     
     #HipHop
     hh=[x for x in musician_array if 'Hip-Hop/R&B' in x.genre]
-
+    #rappers=[x for x 
     #Jazz
     jazz=[x for x in musician_array if 'Jazz' in x.genre]
 
@@ -328,14 +310,23 @@ perc=order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drums
 print('Drum')
 for p in perc:
     print(p)
-
+guitars=order_bySkills([x for x in ro if 'Electric guitar'==x.skills[0]], 'Electric guitar')
+print('guitar')
+print(len(guitars))
+for g in guitars:
+    print(g)
 g1=group('Rock', [],[])
 g2=group('Rock', [],[])
 g3=group('Rock', [],[])
-print(assign([g1,g2,g3], ['Drumset/percussion', 'Singer'], [perc, singers]))
+g4=group('Rock', [], [])
+print('Assign Results')
+print(assign([g1,g2,g3,g4], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
 
+print('/////////////////////////////////')
 print('Groups')
 print(g1)
 print(g2)
 print(g3)
+print(g4)
 
+#sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
