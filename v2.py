@@ -224,7 +224,6 @@ def assign(g_array, nec_skills, musicians):
             if skill in g_array[turn].skills:
                 #print('m')
                 turn=next(it)
-            print(turn)
             g_array[turn].add_musician(m, skill) 
             if i+1==n:
                 finished=True
@@ -232,7 +231,7 @@ def assign(g_array, nec_skills, musicians):
                 fb=False
             if turn==0:
                 fb=True
-            print(fb)
+                #print(fb)
         created = False
         
         if not finished:
@@ -241,7 +240,7 @@ def assign(g_array, nec_skills, musicians):
             if fb: 
                 #ending_turn = turn
                 while ending_turn <n:
-                    print('Ending: ' + str(ending_turn))
+                    #print('Ending: ' + str(ending_turn))
                     if not created:
                         un_g_array[skill]=[g_array[ending_turn]]
                         created=True
@@ -259,6 +258,57 @@ def assign(g_array, nec_skills, musicians):
                     ending_turn-=1 
     return un_g_array
 
+
+def assign2(g_array, nec_skills, musicians):
+    fb=True
+    n=len(g_array)
+    li=list(range(0,n)) + list(range(n-1,-1,-1))
+    it=cycle(li)
+    un_g_array = {}
+    turn = 0
+    for j, skill in enumerate(nec_skills):
+        finished = False
+        starting_turn=(turn)%n
+        
+        for i, m in enumerate(musicians[j]):
+            turn=next(it)
+            #print(turn)
+            if skill in g_array[turn].skills:
+                continue
+
+            g_array[turn].add_musician(m, skill) 
+            if i+1==n:
+                finished=True
+            if turn+1==n:
+                fb=False
+            if turn==0:
+                fb=True
+            #print(fb)
+        created = False
+        
+        if not finished:
+            ending_it=it
+            ending_turn= next(ending_it)
+            if fb: 
+                #ending_turn = turn
+                while ending_turn <n:
+                    #print('Ending: ' + str(ending_turn))
+                    if not created:
+                        un_g_array[skill]=[g_array[ending_turn]]
+                        created=True
+                    else:
+                        un_g_array[skill].append(g_array[ending_turn])
+                    ending_turn+=1
+        
+            else:
+                while ending_turn>=0:
+                    if not created:
+                        un_g_array[skill]=[g_array[ending_turn]]
+                        created=True
+                    else:
+                        un_g_array[skill].append(g_array[ending_turn])
+                    ending_turn-=1 
+    return un_g_array
 
 def create_necList(g_array, genre): #g_array is the list of musicians who have genre as their primary genre
             
@@ -296,12 +346,23 @@ def order_bySkills(i_array, skill):#i_array is a list of musicians with skill in
     
 def sort(musician_array):#makes all groups 
     #Rock
+    g1=group('Rock', [],[])
+    g2=group('Rock', [],[])
+    g3=group('Rock', [],[])
+
     ro=[x for x in musician_array if 'Rock' in x.genre]
-    perc=[x for x in ro if 'Drumset/percussion' in x.skills]
+    #Assign 
+    guitars=order_bySkills([x for x in ro if 'Electric guitar'==x.skills[0]], 'Electric guitar')
+    perc=order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drumset/percussion')
+    singers=[x for x in ro if 'Singer'== x.skills[0]]
+    
+    singers=order_bySkills(singers, 'Singer')
+    
+    
     
     #HipHop
     hh=[x for x in musician_array if 'Hip-Hop/R&B' in x.genre]
-
+    #rappers=[x for x 
     #Jazz
     jazz=[x for x in musician_array if 'Jazz' in x.genre]
 
@@ -336,9 +397,11 @@ g3=group('Rock', [],[])
 g4=group('Rock', [], [])
 print('Assign Results')
 print(assign([g1,g2,g3, g4], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
-
+print('/////////////////////////////////')
 print('Groups')
 print(g1)
 print(g2)
 print(g3)
 print(g4)
+
+#sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
