@@ -251,8 +251,9 @@ def assign2(un_g_array, musicians):
         finished = False
         print(skill)
         for i, m in enumerate(musicians[skill]):
+            print(groups)
             groups[0].add_musician(m, skill) 
-            groups.pop()
+            groups.pop(0)
             num_assigned += 1
             if num_assigned==n:
                 finished = True
@@ -337,19 +338,24 @@ def sort(musician_array):#makes all groups
     h1=group('Hip-Hop/R&B', [],[])
     h2=group('Hip-Hop/R&B', [],[])
     h3=group('Hip-Hop/R&B', [],[])
-
+    h4=group('Hip-Hop/R&B', [],[])
     hh=[x for x in musician_array if 'Hip-Hop/R&B' in x.genre]
     rappers=order_bySkills([x for x in hh if 'Rapper'==x.skills[0]], 'Rapper') 
     prod=order_bySkills([x for x in hh if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker') 
-    print(hh)    
-    un_hh_array=assign([h1,h2,h3], ['Rapper', 'Producer/beatmaker'], [rappers[:3], prod[:3]])
+    print(len(prod))    
+    un_hh_array=assign([h1,h2,h3,h4], ['Rapper', 'Producer/beatmaker'], [rappers[:4], prod[:4]])
     print(h1)
     print(h2)
     print(h3)
+    
+    print(h4) 
     un_hh2=assign2(un_hh_array,make_dict(un_hh_array, hh))
     print('Hip Hop: ////////////////////////////////////////////////////////////')
-    print(un_hh_array)
-
+    print(un_hh2)
+    print(h1)
+    print(h2)
+    print(h3)
+    print(h4) 
     #Jazz
     j1=group('Jazz', [], [])
     jazz=[x for x in musician_array if 'Jazz' in x.genre]
@@ -357,33 +363,41 @@ def sort(musician_array):#makes all groups
     #Electronic
     e1=group('Electronic', [],[])
     e2=group('Electronic', [],[])
-    
+    e3=group('Electronic', [],[])
+    e4=group('Electronic', [],[])
+    e5=group('Electrnoic', [],[])
     el=[x for x in musician_array if 'Electronic' in x.genre]
     el_prod=order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
 
-    un_el_array=assign([h1,h2,h3], ['Producer/beatmaker'], [prod[:2]])
+    un_el_array=assign([e1,e2,e3, e4, e5], ['Producer/beatmaker'], [prod[:5]])
+    un_el2=assign2(un_el_array, make_dict(un_el_array, el))
     print('Electronic: ////////////////////////////////////////////')
     print(un_el_array)
 
     #SingerSongwriter
     ss1=group('Singer/songwriter', [],[])
     ss2=group('Singer/songwriter', [],[])
+    ss3=group('Singer/songwriter', [],[])
 
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
     singers=[x for x in ss if 'Singer'== x.skills[0]]
     singers=order_bySkills(singers, 'Singer')
 
-    un_ss_array=assign([ss1,ss2], ['Singer'], [singers[:2]])
-    
+    un_ss_array=assign([ss1,ss2,ss3], ['Singer'], [singers[:3]])
+   
+    un_ss2=assign2(un_ss_array, make_dict(un_ss_array, ss))
+
     print('SingerSongwriter: /////////////////////////////////')
     print(un_ss_array)
     
     unassigned=[x for x in musician_array if x.assigned==False]
     print(len(unassigned))
+    print(combine(un_ro2, un_hh2,un_el2, un_ss2))
+
 def make_dict(skills, musicians):
     result={}
     for val in skills:
-         result[val]=[x for x in musicians if val in x.skills and x.assigned ==False]
+         result[val]=order_bySkills([x for x in musicians if val in x.skills and x.assigned ==False], val)
     return result
 
 
