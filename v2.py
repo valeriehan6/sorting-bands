@@ -203,11 +203,10 @@ def read(file_name):
 #        - nec_skills: array of necessary of skills for the genre
 #        - musicians: array of musicians with common top genre such that
 #                     musicians[skill] contains a list of musicians with skill as their primary skill
-# Output: un_g_array: array of groups lacking a necessary skill
-# Edits: - g_array: Assigns musicians with  necessary skills to groups
+# Output: un_g_array: dictionary with skill as key and groups needing that skill as value 
+# Edits: - g_array: Assigns musicians with necessary skills to groups
 #        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
 def assign(g_array, nec_skills, musicians):
-    fb = True
     n = len(g_array)
     li = list(range(0,n)) + list(range(n-1,-1,-1))
     it = cycle(li)
@@ -221,6 +220,7 @@ def assign(g_array, nec_skills, musicians):
         for i, m in enumerate(musicians[j]):
             turn = next(it)
             #print(turn)
+
             if skill in g_array[turn].skills:
                 continue
 
@@ -233,6 +233,42 @@ def assign(g_array, nec_skills, musicians):
         if not finished:
            un_g_array[skill]=[x for x in g_array if skill not in x.skills]
     return un_g_array
+
+
+# Input: - un_g_array: dictionary with skill as key and groups needing that skill as value
+#        - musicians: dictionary of skill as key and  unassigned musicians with common top genre as value
+# Output: new_un_g_array: dictionary like un_g_array of groups still lacking a necessary skill
+# Edits: - un_g_array: Assigns musicians with necessary skills to groups
+#        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
+def assign2(un_g_array, musicians):
+    new_un_g_array = {}
+    for skill, groups in un_g_array.items():
+        n = len(groups)
+        li = list(range(0,n)) + list(range(n-1,-1,-1))
+        it = cycle(li)
+        turn = 0
+        num_assigned = 0
+        finished = False
+        print(skill)
+        for i, m in enumerate(musicians[skill]):
+            turn = next(it)
+            print(turn)
+            print(len(groups))
+            print(groups[turn])
+            if skill in groups[turn].skills:
+                continue
+            groups[turn].add_musician(m, skill) 
+            groups.pop(turn)
+            num_assigned += 1
+            if num_assigned==n:
+                finished = True
+                break
+
+        if not finished:
+            new_un_g_array[skill] = un_g_array[skill]
+        
+    return new_un_g_array
+
 
 def create_necList(g_array, genre): #g_array is the list of musicians who have genre as their primary genre
             
@@ -282,7 +318,7 @@ def sort(musician_array):#makes all groups
     singers=[x for x in ro if 'Singer'== x.skills[0]]
     singers=order_bySkills(singers, 'Singer')
     
-    sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
+    sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned==False]
     
     un_g_array=assign([r1,r2,r3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:3], perc[:3], singers[:3]])
     
@@ -314,48 +350,71 @@ def sort(musician_array):#makes all groups
 
     #SingerSongwriter
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
-        
+def make_dict(skills, musicians):
+    result={}
+    for val in skills:
+         result[val]=[x for x in musicians if val in x.skills and x.assigned ==False]
+    return result
+
+
 m_array=read('entries.csv')
-ro=[x for x in m_array if 'Rock' in x.genre]
+
 hh=[x for x in m_array if 'Hip-Hop/R&B' in x.genre]
 el=[x for x in m_array if 'Electronic' in x.genre]
 jazz=[x for x in m_array if 'Jazz' in x.genre]
-for m in jazz:
-    print(m)
-for m in el:
-    print(m)
+#for m in jazz:
+#    print(m)
+#for m in el:
+#    print(m)
 
-for m in hh:
-    print(m)
+#for m in hh:
+#    print(m)
 
 
-'''
+ro=[x for x in m_array if 'Rock' in x.genre]
 singers=[x for x in ro if 'Singer'== x.skills[0]]
 singers=order_bySkills(singers, 'Singer')
 #musicians=[singers]
-for m in ro:
-    print(m)
-print('Singers')
-for s in singers:
-    print(s)
+#for m in ro:
+#    print(m)
+#print('Singers')
+#for s in singers:
+#    print(s)
 perc=order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drumset/percussion')
-print('Drum')
-for p in perc:
-    print(p)
+#print('Drum')
+#for p in perc:
+#    print(p)
 guitars=order_bySkills([x for x in ro if 'Electric guitar'==x.skills[0]], 'Electric guitar')
-print('guitar')
-print(len(guitars))
-for g in guitars:
-    print(g)
+#print('guitar')
+#print(len(guitars))
+#for g in guitars:
+#    print(g)
 g1=group('Rock', [],[])
 g2=group('Rock', [],[])
 g3=group('Rock', [],[])
 g4=group('Rock', [], [])
-print('Assign Results')
+#print('Assign Results')
 
-print(assign([g1,g2,g3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
+dict_test=assign([g1,g2,g3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:3], perc[:3], singers[:3]])
+print(dict_test)
+print('Before')
+print('Groups')
+print(g1)
+print(g2)
+print(g3)
+m_dict=make_dict(list(dict_test.keys()), ro)
+print(assign2(dict_test, m_dict))
+print('/////////////////////////////')
+print('After')
+print(g1)
+print(g2)
+print(g3)
 
-print(assign([g1,g2,g3,g4], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:4], perc[:4], singers[:4]]))
+
+
+
+print(dict_test)
+
 
 print('/////////////////////////////////')
 print('Groups')
@@ -365,4 +424,3 @@ print(g3)
 print(g4)
 
 #sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
-'''
