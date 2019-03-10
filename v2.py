@@ -4,6 +4,7 @@ import csv
 import itertools
 import numpy
 from itertools import cycle
+import copy
 #from more_itertools import sort_together
 
 genre_array=['Hip-Hop/R&B', 'Rock', 'Jazz', 'Singer/Songwriter', 'Electronic']
@@ -246,28 +247,18 @@ def assign2(un_g_array, musicians):
     new_un_g_array = {}
     for skill, groups in un_g_array.items():
         n = len(groups)
-        li = list(range(0,n)) + list(range(n-1,-1,-1))
-        it = cycle(li)
-        turn = 0
         num_assigned = 0
         finished = False
         print(skill)
         for i, m in enumerate(musicians[skill]):
-            turn = next(it)
-            print(turn)
-            print(len(groups))
-            print(groups[turn])
-            if skill in groups[turn].skills:
-                continue
-            groups[turn].add_musician(m, skill) 
-            groups.pop(turn)
+            groups[0].add_musician(m, skill) 
+            un_g_array[skill].pop()
             num_assigned += 1
             if num_assigned==n:
                 finished = True
                 break
-
         if not finished:
-            new_un_g_array[skill] = un_g_array[skill]
+            new_un_g_array[skill] = groups
         
     return new_un_g_array
 
