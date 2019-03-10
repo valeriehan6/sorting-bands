@@ -253,8 +253,8 @@ def assign2(un_g_array, musicians):
         for i, m in enumerate(musicians[skill]):
             turn = next(it)
             print(turn)
-            print(len(groups))
-            print(groups[turn])
+            print((groups))
+            #print(groups[turn])
             if skill in groups[turn].skills:
                 continue
             groups[turn].add_musician(m, skill) 
@@ -318,11 +318,11 @@ def sort(musician_array):#makes all groups
     singers=[x for x in ro if 'Singer'== x.skills[0]]
     singers=order_bySkills(singers, 'Singer')
     
-    sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned==False]
-    
-    un_g_array=assign([r1,r2,r3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:3], perc[:3], singers[:3]])
-    
-    
+    un_ro_array=assign([r1,r2,r3], ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:3], perc[:3], singers[:3]])
+    print('Rock: //////////////////////////////////////////////')
+    #print(un_ro_array)
+    un_ro2=assign2(un_ro_array,make_dict(un_ro_array, ro))
+
     #HipHop
     h1=group('Hip-Hop/R&B', [],[])
     h2=group('Hip-Hop/R&B', [],[])
@@ -331,25 +331,45 @@ def sort(musician_array):#makes all groups
     hh=[x for x in musician_array if 'Hip-Hop/R&B' in x.genre]
     rappers=order_bySkills([x for x in hh if 'Rapper'==x.skills[0]], 'Rapper') 
     prod=order_bySkills([x for x in hh if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker') 
-    
-    
-    assign([h1,h2,h3], ['Rapper', 'Producer/beatmaker'], [rappers[:3], prod[:3]])
+    print(hh)    
+    un_hh_array=assign([h1,h2,h3], ['Rapper', 'Producer/beatmaker'], [rappers[:3], prod[:3]])
+    print(h1)
+    print(h2)
+    print(h3)
+    un_hh2=assign2(un_hh_array,make_dict(un_hh_array, hh))
+    print('Hip Hop: ////////////////////////////////////////////////////////////')
+    print(un_hh_array)
 
     #Jazz
+    j1=group('Jazz', [], [])
     jazz=[x for x in musician_array if 'Jazz' in x.genre]
 
-    #Electronic    
+    #Electronic
     e1=group('Electronic', [],[])
     e2=group('Electronic', [],[])
     
     el=[x for x in musician_array if 'Electronic' in x.genre]
-    hh_prod=order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
-    #inst=order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
+    el_prod=order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
 
-
+    un_el_array=assign([h1,h2,h3], ['Producer/beatmaker'], [prod[:2]])
+    print('Electronic: ////////////////////////////////////////////')
+    print(un_el_array)
 
     #SingerSongwriter
+    ss1=group('Singer/songwriter', [],[])
+    ss2=group('Singer/songwriter', [],[])
+
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
+    singers=[x for x in ss if 'Singer'== x.skills[0]]
+    singers=order_bySkills(singers, 'Singer')
+
+    un_ss_array=assign([ss1,ss2], ['Singer'], [singers[:2]])
+    
+    print('SingerSongwriter: /////////////////////////////////')
+    print(un_ss_array)
+    
+    unassigned=[x for x in musician_array if x.assigned==False]
+    print(len(unassigned))
 def make_dict(skills, musicians):
     result={}
     for val in skills:
@@ -358,7 +378,11 @@ def make_dict(skills, musicians):
 
 
 m_array=read('entries.csv')
+sort(m_array)
 
+
+
+'''
 hh=[x for x in m_array if 'Hip-Hop/R&B' in x.genre]
 el=[x for x in m_array if 'Electronic' in x.genre]
 jazz=[x for x in m_array if 'Jazz' in x.genre]
@@ -402,25 +426,14 @@ print('Groups')
 print(g1)
 print(g2)
 print(g3)
-m_dict=make_dict(list(dict_test.keys()), ro)
-print(assign2(dict_test, m_dict))
+m_dict=make_dict(list(dict_test.keys()), m_array)
+as2=assign2(dict_test, m_dict)
 print('/////////////////////////////')
 print('After')
-print(g1)
-print(g2)
-print(g3)
-
-
-
-
-print(dict_test)
-
-
-print('/////////////////////////////////')
 print('Groups')
 print(g1)
 print(g2)
 print(g3)
-print(g4)
-
+print(as2)
 #sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
+'''
