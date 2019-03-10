@@ -203,11 +203,10 @@ def read(file_name):
 #        - nec_skills: array of necessary of skills for the genre
 #        - musicians: array of musicians with common top genre such that
 #                     musicians[skill] contains a list of musicians with skill as their primary skill
-# Output: un_g_array: array of groups lacking a necessary skill
-# Edits: - g_array: Assigns musicians with  necessary skills to groups
+# Output: un_g_array: dictionary with skill as key and groups needing that skill as value 
+# Edits: - g_array: Assigns musicians with necessary skills to groups
 #        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
 def assign(g_array, nec_skills, musicians):
-    fb = True
     n = len(g_array)
     li = list(range(0,n)) + list(range(n-1,-1,-1))
     it = cycle(li)
@@ -233,6 +232,33 @@ def assign(g_array, nec_skills, musicians):
         if not finished:
            un_g_array[skill]=[x for x in g_array if skill not in x.skills]
     return un_g_array
+
+
+# Input: - un_g_array: dictionary with skill as key and groups needing that skill as value
+#        - musicians: dictionary of skill as key and  unassigned musicians with common top genre as value
+# Output: un_g_array: array of groups lacking a necessary skill
+# Edits: - un_g_array: Assigns musicians with necessary skills to groups
+#        - musicians: Musicians that are assigned to groups are marked as assigned using add_musician
+def assign2(un_g_array, musicians):
+    for skill, groups in un_g_array.items():
+        n = len(groups)
+        li = list(range(0,n)) + list(range(n-1,-1,-1))
+        it = cycle(li)
+        turn = 0
+        num_assigned = 0
+
+        for i, m in enumerate(musicians[skill]):
+            turn = next(it)
+            if skill in groups[turn].skills:
+                continue
+            group[turn].add_musician(m, skill) 
+            groups.pop(turn)
+            num_assigned += 1
+            if num_assigned==n:
+                del un_g_array[skill]
+        
+    return un_g_array
+
 
 def create_necList(g_array, genre): #g_array is the list of musicians who have genre as their primary genre
             
