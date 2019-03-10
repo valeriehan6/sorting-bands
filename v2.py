@@ -251,11 +251,12 @@ def assign2(un_g_array, musicians):
             turn = next(it)
             if skill in groups[turn].skills:
                 continue
-            group[turn].add_musician(m, skill) 
+            groups[turn].add_musician(m, skill) 
             groups.pop(turn)
             num_assigned += 1
             if num_assigned==n:
                 del un_g_array[skill]
+                break
         
     return un_g_array
 
