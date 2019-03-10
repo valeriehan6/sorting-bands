@@ -314,9 +314,18 @@ def sort(musician_array):#makes all groups
 
     #SingerSongwriter
     ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
-        
+def make_dict(musicians):
+    for val in skills_array:
+        dict_test[val]=[x for x in m_array if val in x.skills and x.assigned ==False]
+    return dict_test
+
+
 m_array=read('entries.csv')
-ro=[x for x in m_array if 'Rock' in x.genre]
+dict_test={}
+for val in skills_array:
+    dict_test[val]=[x for x in m_array if val in x.skills]
+
+'''
 hh=[x for x in m_array if 'Hip-Hop/R&B' in x.genre]
 el=[x for x in m_array if 'Electronic' in x.genre]
 jazz=[x for x in m_array if 'Jazz' in x.genre]
@@ -372,4 +381,4 @@ print(g3)
 print(g4)
 
 #sec_drum=[x for x in ro if 'Drumset/percussion' in x.skills and x.assigned=False]
-
+'''
