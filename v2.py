@@ -262,6 +262,23 @@ def assign2(un_g_array, musicians):
         
     return new_un_g_array
 
+# Used for last round of assigning (assigning "unnecessary" ppl)
+# Input: - g_array: list of geoups in a certain genre
+#        - m_array: list of unassigned musicians in a certain genre (ordered by skill level)
+# Output: g_array: list of groups (now with all the musicians in m_array assigned)
+# Edits: - g_array: Assigns musicians with necessary skills to groups
+#        - m_array: Musicians that are assigned to groups are marked as assigned using add_musician
+def assign3(g_array, m_array):
+    n = len(g_array)
+    li = list(range(0,n)) + list(range(n-1,-1,-1))
+    it = cycle(li)
+    turn = 0
+    for m in m_array:
+        turn = next(it)
+        g_array[turn].add_musician(m, m.skills)
+        
+    return g_array
+
 # Combines all the different un_g_array's for each genre into a single dictionary
 # Used between the second and third round of assigning
 # Input: g1, g2, g3, g4: un_g_array output from assign2 function
@@ -313,7 +330,9 @@ def order_bySkills(i_array, skill):#i_array is a list of musicians with skill in
     #return profs_for_skill
     result = [x for _,x in sorted(zip(profs_for_skill,i_array), reverse=True, key=lambda pair: pair[0])]
     return result
-    
+
+def sort_in_genre(genre, num_groups, musician_array):
+
 def sort(musician_array):#makes all groups 
     
     #Rock
