@@ -331,7 +331,28 @@ def order_bySkills(i_array, skill):#i_array is a list of musicians with skill in
     result = [x for _,x in sorted(zip(profs_for_skill,i_array), reverse=True, key=lambda pair: pair[0])]
     return result
 
-def sort_in_genre(genre, num_groups, musician_array):
+# Used in sort for first two rounds of assigning
+# Input: - genre: e.g. 'Rock'
+#        - nec_skills: list of necessary skills for genre
+#        - num_groups: number of groups wanted for genre
+#        - musician_array: list of all musicians
+# Output: - un_g_array2: result of assign2
+def sort_in_genre(genre, nec_skills, num_groups, musician_array):
+    g_array = []
+    for i in range(0, num_groups):
+        g_array.append(group(genre, [], [])
+
+    genre_m_array = [x for x in musician_array if genre in x.genre] # musicians with genre as top genre
+
+    genre_skill_m_array = [] # list of lists of musicians with genre as top genre and skill as top skill
+    for skill in nec_skills:
+        genre_skill_m_array = genre_skill_m_array + order_bySkills([x for x in genre_m_array if genre==x.skills[0]] skill)[:num_groups]
+
+    un_g_array = assign(g_array, nec_skills, genre_skill_m_array)
+
+    un_g_array2 = assign2(un_g_array, make_dict(un_g_array, genre_m_array))
+
+    return un_g_array2
 
 def sort(musician_array):#makes all groups 
     
