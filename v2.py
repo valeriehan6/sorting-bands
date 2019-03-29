@@ -356,8 +356,13 @@ def sort_in_genre(genre, nec_skills, num_groups, musician_array):
 
     return g_array, un_g_array2
 
-def sort(musician_array):#makes all groups 
+# Overall structure function - makes all groups
+# Input: musician_array: list of all musicians
+# Output: ??
+def sort(musician_array):
     print(len(musician_array)) 
+
+    # First & second round of assigning
     #Rock
     groups_rock, un_ro2=make_groups('Rock', 3, musician_array)
     #Hip-Hop
@@ -368,10 +373,23 @@ def sort(musician_array):#makes all groups
     groups_el, un_el2=make_groups('Electronic',2, musician_array)
     #Singer wasdf;lij
     groups_ss, un_ss2=make_groups('Singer/Songwriter', 3, musician_array)
-    
-    
+
+    # Third round of assigning
+    musicians = make_dict(skills_array, musician_array)
+
+    comb_un_g_array = combine(un_ro2, un_hh2, un_el2, un_ss2)
+    un_g_array2 = assign2(comb_un_g_array, musicians)
+
+    print(un_g_array2)
+
+    # Last round of assigning
     unassigned=[x for x in musician_array if x.assigned==False]
-    print(len(unassigned))
+
+    assign3(groups_rock, [x for x in unassigned if x.genre=='Rock')
+    assign3(groups_hh, [x for x in unassigned if x.genre=='Hip-Hop/R&B')
+    assign3(groups_el, [x for x in unassigned if x.genre=='Electronic')
+    assign3(groups_ss, [x for x in unassigned if x.genre=='Singer/Songwriter')
+
     
     ''' 
     r1=group('Rock', [],[])
