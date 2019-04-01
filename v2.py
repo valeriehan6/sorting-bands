@@ -7,8 +7,8 @@ from itertools import cycle
 import copy
 #from more_itertools import sort_together
 
-genre_array=['Hip-Hop/R&B', 'Rock', 'Jazz', 'Singer/Songwriter', 'Electronic']
-skills_array=['Producer/beatmaker', 'Acoustic Guitar', 'Bass Guitar', 'Electric Guitar', 'Piano', 'Singer', 'Rapper', 'Drumset/percussion', 'Saxophone', 'Upright Bass', 'Trumpet', 'Trombone', 'Other']
+genre_array = ['Hip-Hop/R&B', 'Rock', 'Jazz', 'Singer/Songwriter', 'Electronic']
+skills_array = ['Producer/beatmaker', 'Acoustic Guitar', 'Bass Guitar', 'Electric Guitar', 'Piano', 'Singer', 'Rapper', 'Drumset/percussion', 'Saxophone', 'Upright Bass', 'Trumpet', 'Trombone', 'Other']
 
 class musician:
     def __init__(self, name,prim_genres, skills, proficiencies, sec_genres=None):
@@ -233,7 +233,7 @@ def assign(g_array, nec_skills, musicians):
                 finished = True
         
         if not finished:
-           un_g_array[skill]=[x for x in g_array if skill not in x.skills]
+           un_g_array[skill] = [x for x in g_array if skill not in x.skills]
     return un_g_array
 
 
@@ -367,15 +367,15 @@ def sort(musician_array):
 
     # First & second round of assigning
     #Rock
-    groups_rock, un_ro2=make_groups('Rock', 10, musician_array)
+    groups_rock, un_ro2 = make_groups('Rock', 10, musician_array)
     #Hip-Hop
-    groups_hh, un_hh2=make_groups('Hip-Hop/R&B', 5,musician_array)
+    groups_hh, un_hh2 = make_groups('Hip-Hop/R&B', 4, musician_array)
     #Jazz
 
     #Ele
-    groups_el, un_el2=make_groups('Electronic',2, musician_array)
+    groups_el, un_el2 = make_groups('Electronic', 2, musician_array)
     #Singer wasdf;lij
-    groups_ss, un_ss2=make_groups('Singer/Songwriter', 4, musician_array)
+    groups_ss, un_ss2 = make_groups('Singer/Songwriter', 4, musician_array)
 
     # Third round of assigning
     musicians = make_dict(skills_array, musician_array)
@@ -387,7 +387,7 @@ def sort(musician_array):
     print(un_g_array2)
 
     # Last round of assigning
-    unassigned=[x for x in musician_array if x.assigned==False]
+    unassigned = [x for x in musician_array if x.assigned==False]
 
     assign3(groups_rock, [x for x in unassigned if x.genre=='Rock'])
     assign3(groups_hh, [x for x in unassigned if x.genre=='Hip-Hop/R&B'])
@@ -398,54 +398,64 @@ def sort(musician_array):
     print('Number of Unassigned: ' + str(len((unassigned))))
     for x in unassigned:
         print(x)
+
+    print('Rock Groups:')
     print(groups_rock)
+
+    print('Hip-Hop/R&B Groups:')
     print(groups_hh)
+
+    print('Electronic Groups:')
     print(groups_el)
+
+    print('Singer/Songwriter Groups:')
     print(groups_ss)
     return
+
 def make_dict(skills, musicians):
-    result={}
+    result = {}
     for val in skills:
-         result[val]=order_bySkills([x for x in musicians if val in x.skills and x.assigned ==False], val)
+         result[val] = order_bySkills([x for x in musicians if val in x.skills and x.assigned ==False], val)
     return result
+
 def make_groups(genre, num, musician_array):
-    group_result=[]
+    group_result = []
     for x in range(num):
         #print(x)
         group_result.append(group(genre, [],[]))
-    un_2={}
+    un_2 = {}
     if genre == 'Rock':
-        ro=[x for x in musician_array if 'Rock' in x.genre]
-        guitars=order_bySkills([x for x in ro if 'Electric guitar'==x.skills[0]], 'Electric guitar')
-        perc=order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drumset/percussion')
-        singers=[x for x in ro if 'Singer'== x.skills[0]]
-        singers=order_bySkills(singers, 'Singer')
-        un_array=assign(group_result, ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:num], perc[:num], singers[:num]])
+        ro = [x for x in musician_array if 'Rock' in x.genre]
+        guitars = order_bySkills([x for x in ro if 'Electric guitar'==x.skills[0]], 'Electric guitar')
+        perc = order_bySkills([x for x in ro if 'Drumset/percussion'==x.skills[0]], 'Drumset/percussion')
+        singers = [x for x in ro if 'Singer'== x.skills[0]]
+        singers = order_bySkills(singers, 'Singer')
+        un_array = assign(group_result, ['Electric guitar', 'Drumset/percussion', 'Singer'], [ guitars[:num], perc[:num], singers[:num]])
         un_2=assign2(un_array,make_dict(un_array, ro))
     elif genre == 'Hip Hop/R&B':
-        hh=[x for x in musician_array if 'Hip-Hop/R&B' in x.genre]
-        rappers=order_bySkills([x for x in hh if 'Rapper'==x.skills[0]], 'Rapper') 
-        prod=order_bySkills([x for x in hh if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker') 
-        un_array=assign(group_result, ['Rapper', 'Producer/beatmaker'], [rappers[:num], prod[:num]])
-        un_2=assign2(un_array,make_dict(un_array, hh))
-    elif genre=='Jazz':
-        jazz=[x for x in musician_array if 'Jazz' in x.genre]
+        hh = [x for x in musician_array if 'Hip-Hop/R&B' in x.genre]
+        rappers = order_bySkills([x for x in hh if 'Rapper'==x.skills[0]], 'Rapper') 
+        prod = order_bySkills([x for x in hh if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker') 
+        un_array = assign(group_result, ['Rapper', 'Producer/beatmaker'], [rappers[:num], prod[:num]])
+        un_2 = assign2(un_array,make_dict(un_array, hh))
+    elif genre == 'Jazz':
+        jazz = [x for x in musician_array if 'Jazz' in x.genre]
     elif genre == 'Electronic':
-        el=[x for x in musician_array if 'Electronic' in x.genre]
-        el_prod=order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
-        un_array=assign(group_result, ['Producer/beatmaker'], [el_prod[:num]])
-        un_2=assign2(un_array, make_dict(un_array, el))
-    elif genre=='Singer/songwriter':
-        ss=[x for x in musician_array if 'Singer/Songwriter' in x.genre]
-        singers=[x for x in ss if 'Singer'== x.skills[0]]
-        singers=order_bySkills(singers, 'Singer')
+        el = [x for x in musician_array if 'Electronic' in x.genre]
+        el_prod = order_bySkills([x for x in musician_array if 'Producer/beatmaker'==x.skills[0]], 'Producer/beatmaker')
+        un_array = assign(group_result, ['Producer/beatmaker'], [el_prod[:num]])
+        un_2 = assign2(un_array, make_dict(un_array, el))
+    elif genre == 'Singer/songwriter':
+        ss = [x for x in musician_array if 'Singer/Songwriter' in x.genre]
+        singers = [x for x in ss if 'Singer'== x.skills[0]]
+        singers = order_bySkills(singers, 'Singer')
 
-        un_array=assign(group_result, ['Singer'], [singers[:num]])
-        un_2=assign2(un_array, make_dict(un_array, ss))
+        un_array = assign(group_result, ['Singer'], [singers[:num]])
+        un_2 = assign2(un_array, make_dict(un_array, ss))
     return group_result, un_2
 
 
-m_array=read('entries.csv')
+m_array = read('entries.csv')
 sort(m_array)
 
 
