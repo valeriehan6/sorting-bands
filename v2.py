@@ -250,16 +250,19 @@ def assign2(un_g_array, musicians):
         num_assigned = 0
         finished = False
         #print(skill)
-        for i, m in enumerate(musicians[skill]):
-            #print(groups)
-            groups[0].add_musician(m, skill) 
-            groups.pop(0)
-            num_assigned += 1
-            if num_assigned==n:
-                finished = True
-                break
-        if not finished:
+        if skill not in musicians:
             new_un_g_array[skill] = groups
+        else:
+            for i, m in enumerate(musicians[skill]):
+                #print(groups)
+                groups[0].add_musician(m, skill) 
+                groups.pop(0)
+                num_assigned += 1
+                if num_assigned==n:
+                    finished = True
+                    break
+            if not finished:
+                new_un_g_array[skill] = groups
         
     return new_un_g_array
 
@@ -364,23 +367,24 @@ def sort(musician_array):
 
     # First & second round of assigning
     #Rock
-    groups_rock, un_ro2=make_groups('Rock', 3, musician_array)
+    groups_rock, un_ro2=make_groups('Rock', 10, musician_array)
     #Hip-Hop
-    groups_hh, un_hh2=make_groups('Hip-Hop/R&B', 3,musician_array)
+    groups_hh, un_hh2=make_groups('Hip-Hop/R&B', 5,musician_array)
     #Jazz
 
     #Ele
     groups_el, un_el2=make_groups('Electronic',2, musician_array)
     #Singer wasdf;lij
-    groups_ss, un_ss2=make_groups('Singer/Songwriter', 3, musician_array)
+    groups_ss, un_ss2=make_groups('Singer/Songwriter', 4, musician_array)
 
     # Third round of assigning
     musicians = make_dict(skills_array, musician_array)
 
     comb_un_g_array = combine(un_ro2, un_hh2, un_el2, un_ss2)
     un_g_array2 = assign2(comb_un_g_array, musicians)
-
-    #print(un_g_array2)
+    
+    print('Groups which still need "necessary people" - does not include unnecessary people:')
+    print(un_g_array2)
 
     # Last round of assigning
     unassigned=[x for x in musician_array if x.assigned==False]
